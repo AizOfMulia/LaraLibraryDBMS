@@ -8,7 +8,7 @@
 
 ### How to use
 
-1. Clone the repo `git clone https://`
+1. Clone the repo `git clone https://github.com/AizOfMulia/LaraLibraryDBMS.git`
 2. Cd into the directory.
 3. Run `docker-compose up -d`
 4. Shut down the server `docker-compose down`
