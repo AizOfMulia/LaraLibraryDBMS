@@ -1,0 +1,73 @@
+version: '3'
+services:
+    app:
+        build:
+            context: ./lara-app/
+            dockerfile: Dockerfile
+        image: digitalocean.com/php
+        container_name: lara-app
+        restart: always
+        tty: true
+        environment:
+            SERVICE_NAME: lara-app
+            SERVICE_TAGS: dev
+        working_dir: /var/www/
+        volumes:
+            - ./lara-app/:/var/www/
+            - ./php/local.ini/:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - lara-network
+
+    webserver:
+        image: nginx:1.17-alpine
+        container_name: webserver
+        restart: always
+        tty: true
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./lara-app/:/var/www/
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - lara-network
+
+    database:
+        image: mysql:5.7.22
+        container_name: database
+        restart: always
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: lara-app
+            MYSQL_ROOT_PASSWORD: root
+            SERVICE_NAME: mysql
+            SERVICE_TAGS: dev
+        volumes:
+            - my-data:/var/lib/mysql/
+            - ./mysql/my.cnf:/etc/mysql/my.cnf
+        networks:
+            - lara-network
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            PMA_HOST: database
+            PMA_USER: root
+            PMA_PASSWORD: root
+            SERVICE_NAME: phpmyadmin
+            SERVICE_TAGS: dev
+        ports:
+            - "5000:80"
+        networks:
+            - lara-network
+
+networks:
+    lara-network:
+        driver: bridge
+
+volumes:
+    my-data:
+        driver: local
