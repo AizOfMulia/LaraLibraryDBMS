@@ -13,6 +13,12 @@
 3. Run `docker-compose up -d`
 4. Shut down the server `docker-compose down`
 
+### How to input commands
+If you need to use composer commands or artisan command, you can use `docker-compose exec <service_name>`
+
+For any basic usage:
+`docker-compose exec app php artisan`
+
 ### Laravel features
 The project uses laravel as a MVC framework, the basic folders used are
 1. `app` (MODEL)
