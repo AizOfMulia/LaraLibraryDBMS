@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The function connects a one to one relationship with the users_role tables
+     *
+     * @return array
+     */
+    public function roles()
+    {
+        return $this->hasOne('App\UsersRole');
+    }
 }
