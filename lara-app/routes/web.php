@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
+Route::get('/', 'PageController@dashboard')->middleware('auth');
+
+Route::get('/InsertBook', 'PageController@insertBook');
+
+Route::get('/ListBook', 'PageController@listBook');
 
 //Route::get('/login', 'LoginController@showLogin');
 
