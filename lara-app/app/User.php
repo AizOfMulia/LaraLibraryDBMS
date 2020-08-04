@@ -42,8 +42,20 @@ class User extends Authenticatable
      *
      * @return array
      */
-    public function roles()
+    public function role()
     {
         return $this->hasOne('App\UserRole', 'id', 'role_id');
+    }
+
+    /**
+     * The functions connects a one to one relationship with user_profile tables
+     *
+     * related to user profiles.
+     *
+     * @return array
+     */
+    public function profile()
+    {
+        return $this->hasOne('App\UserProfile', 'id', 'profile_id');
     }
 }

@@ -17,6 +17,6 @@ class DashboardController extends Controller
     {
         $user   =   User::find(1);
 
-        return view('dashtest', ['user' => $user]);
+        return view('home', ['user' => $user]);
     }
 }

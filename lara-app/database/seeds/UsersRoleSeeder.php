@@ -11,11 +11,11 @@ class UsersRoleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user_role')->insert([
+        DB::table('users_role')->insert([
             'role_name' =>  'user'
         ]);
 
-        DB::table('user_role')->insert([
+        DB::table('users_role')->insert([
             'role_name' =>  'staff'
         ]);
     }
