@@ -260,6 +260,7 @@ class BookSeeder extends Seeder
         foreach($rows as $row){
             DB::table('book')->insert($row);
         }
+        
             
     }
 }
