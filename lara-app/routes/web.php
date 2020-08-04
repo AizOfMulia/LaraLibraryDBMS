@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PageController@dashboard')->middleware('auth');
+Route::get('/', 'DashboardController@index')->middleware('auth');
 
 Route::get('/InsertBook', 'PageController@insertBook');
 
