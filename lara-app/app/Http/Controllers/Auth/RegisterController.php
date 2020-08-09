@@ -74,7 +74,7 @@ class RegisterController extends Controller
 
         $user_profile   =  new UserProfile();
 
-        $user_profile->id   =   $user_register->id;
+        $user_profile->user()->associate($user_register);
 
         $user_profile->save();
 
