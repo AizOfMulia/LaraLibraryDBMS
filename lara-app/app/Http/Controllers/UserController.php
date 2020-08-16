@@ -14,13 +14,13 @@ class UserController extends Controller
     /**
      * @brief user search function using ajax
      *
-     * @param $request
+     * @param   Request     $request
      *
-     * @return ajax
+     * @return  Response 
      */
     public function searchUser(Request $request)
     {
-
+    
     }
 
     public function updateUser(Request $request)
