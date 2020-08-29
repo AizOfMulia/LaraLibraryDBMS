@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'roles_id'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -36,16 +36,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * The function connects a one to one relationship with the users_role tables
-     *
-     * @return array
-     */
-    public function role()
-    {
-        return $this->hasOne('App\UserRole', 'id', 'role_id');
-    }
 
     /**
      * The functions connects a one to one relationship with user_profile tables
