@@ -11,7 +11,7 @@ class StaffSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('staff')->insert([
+        DB::table('staffs')->insert([
             'name'      =>  'AkmalAisy',
             'email'     =>  'akmal.rudy15@s.unikl.edu.my',
             'password'  =>  Hash::make('12345678')
