@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+use Auth;
+
 class LoginController extends Controller
 {
     /*
@@ -66,7 +69,10 @@ class LoginController extends Controller
      */
     public function loginStaff(Request $request)
     {
-        $this->validateLogin($request);
+        $this->validate($request, [
+            'email'     => 'required|email',
+            'password'  => 'required|min:8',
+        ]);
 
         if(method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request))
@@ -76,10 +82,23 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if(attemptLoginStaff())
+        if($this->attemptLoginStaff($request))
             return redirect()->intended('/');
 
         return back()->withInput($request->only($this->username(), 'remember'));
+    }
+
+    /**
+     *  Logs out staff account using guard
+     *
+     *  @return \Illuminate\Redirect
+     */
+    public function logoutStaff()
+    {
+        Auth::guard('staff')->logout();
+        return redirect()
+                ->route('login.show.staff')
+                ->with('status', 'Staff has been logged out!');
     }
 
     /**
@@ -87,13 +106,9 @@ class LoginController extends Controller
      *
      *  @return bool
      */
-    public function attemptLoginStaff($request)
+    protected function attemptLoginStaff(Request $request)
     {
-        return Auth::guard('staff')
-            ->attempt([
-                'email' => $request->email,
-                'password' => $request->password],
-                $request->get('remember')
-            );
+        return Auth::guard('staff')->attempt(
+            $this->credentials($request), $request->filled('remember'));
     }
 }
