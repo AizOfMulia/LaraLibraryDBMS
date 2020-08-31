@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware('staffonly');
+})->middleware('auth:staff');
 
 Auth::routes();
 
+/**
+ *  Login web route
+ *
+ *  @middleware guest
+ */
 Route::group(['prefix' => 'login', 'as' => 'login.'], function ()
 {
     Route::get('/', 'Auth\LoginController@showLoginForm')->name('show.user');
@@ -26,6 +31,33 @@ Route::group(['prefix' => 'login', 'as' => 'login.'], function ()
     Route::get('/staff', 'Auth\LoginController@showStaffLogin')->name('show.staff');
     Route::post('/staff', 'Auth\LoginController@loginStaff')->name('staff');
 });
+
+/**
+ *  User related web routing
+ *  + User dashboard
+ *  + Book public list
+ *  + User book rented/lent list
+ *  + User profile
+ *
+ *  @middleware auth
+ */
+//Route::group(['prefix' => 'user', 'as' => 'user.'], function ()
+//{
+//
+//})->middleware('auth');
+
+/**
+ *  Staff related web routing
+ *  + Staff edit book list
+ *  + All user rented book list
+ *  + Add staff account
+ *
+ *  @middleware auth:staff
+ */
+//Route::group(['prefix' => 'staff', 'as' => 'staff.'], function ()
+//{
+//
+//})->middleware('auth:staff');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::post('/user', 'UserController@searchUser')->name('searchUser');
