@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/InsertBook', 'PageController@insertBook');
+Route::get('/ListBook', 'PageController@listBook');
+
 Route::get('/', function () {
     return view('welcome');
 })->middleware('auth:staff');
