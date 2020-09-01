@@ -17,14 +17,25 @@ class CreateBookTable extends Migration
             $table->id('isbn');
             $table->string('title');
             $table->mediumText('description')->nullable();
-            $table->string('category');
+            $table->integer('category_id');
             $table->string('author')->nullable();
             $table->date('published')->nullable();
+            $table->boolean('availability')->nullable();
             $table->timestamps();
         });
+
+        
+        Schema::table('book', function (Blueprint $table)
+            {
+                $table->foreign('category_id')
+                      ->references('id')
+                      ->on('category')
+                      ->onDelete('cascade');
+            });
     }
 
     /**
+     * 
      * Reverse the migrations.
      *
      * @return void
